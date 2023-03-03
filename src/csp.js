@@ -93,7 +93,7 @@ function getContentSecurityPolicies(resourceTypesObject) {
     },
     {
       contentSecurity: 'style-src',
-      sourceValue: `'self'`,
+      sourceValue: `'self' 'unsafe-inline'`,
       domains: formatDomains(resourceTypesObject['style-src']),
     },
   ]
