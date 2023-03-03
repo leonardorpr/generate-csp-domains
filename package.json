@@ -10,5 +10,9 @@
   },
   "scripts": {
     "start": "node index.js"
+  },
+  "devDependencies": {
+    "chalk": "^5.2.0",
+    "figlet": "^1.5.2"
   }
 }

@@ -1,6 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 
+import { message } from './bash.js'
+
 export async function getFileContent(file) {
   try {
     const filesFolder = path.resolve(`${file}.har`)
@@ -8,7 +10,7 @@ export async function getFileContent(file) {
 
     return JSON.parse(data)
   } catch (err) {
-    console.log(err)
+    message.error('😔 error reading file')
   }
 }
 
@@ -18,7 +20,7 @@ export function createOutputFile(data) {
     file.write(data)
     file.end()
   } catch (err) {
-    console.log(err)
+    message.error('😔 error creating file')
   }
 }
 

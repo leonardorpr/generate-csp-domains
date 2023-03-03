@@ -5,6 +5,8 @@ import {
   formatDomains,
 } from './utils.js'
 
+import { message } from './bash.js'
+
 function getResourceTypes(sourceType) {
   const sourceTypes = {
     default: 'default-src',
@@ -102,6 +104,8 @@ function getContentSecurityPolicies(resourceTypesObject) {
 }
 
 async function createContentSecurityRules() {
+  message.default('🔎 reading HAR file')
+
   const httpArchiveContent = await getFileContent('source')
   const resourceTypes = mountResourceTypesObject(httpArchiveContent)
   const contentSecurityPolicies = getContentSecurityPolicies(resourceTypes)
@@ -109,6 +113,8 @@ async function createContentSecurityRules() {
   const csp = contentSecurityPolicies.map((currentCsp) => {
     return `${currentCsp.contentSecurity} ${currentCsp.domains} ${currentCsp.sourceValue}; `
   })
+
+  message.default('🧰 preparing file for creation')
 
   return csp
 }
@@ -119,4 +125,6 @@ export async function generateContentSecurityFile() {
   const fileContent = `content-security-policy: ${contentSecurityRules}`
 
   createOutputFile(fileContent)
+
+  message.success('🥳 file created successfully')
 }
